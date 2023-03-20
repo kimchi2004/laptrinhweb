@@ -1,0 +1,104 @@
+﻿@using _19T1021020.Web.Codes
+@model _19T1021020.DomainModels.Product
+@{
+    ViewBag.Title = "Bổ Sung Mặt Hàng";
+}
+
+<div class="box box-primary">
+    <div class="box-body">
+        <form action="~/Product/Save" class="form-horizontal" method="post" enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+
+            <input name="ProductID" type="hidden" value="@Model.ProductID">
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="ProductName">Tên mặt hàng:</label>
+                <div class="col-sm-10">
+                    <input autofocus class="form-control" id="ProductName" name="ProductName" placeholder="Product Name" type="text" value="@Model.ProductName">
+                    @Html.ValidationMessageFor(m => m.ProductName, "", new
+                    {
+                        @class = "text-danger"
+                    })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">Loại hàng:</label>
+                <div class="col-sm-10">
+                    @Html.DropDownListFor(m => m.CategoryID, SelectListHelper.Categories(), new
+                    {
+                        @class = "form-control"
+                    })
+                    @Html.ValidationMessageFor(m => m.CategoryID, "", new
+                    {
+                        @class = "text-danger"
+                    })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">Nhà cung cấp:</label>
+                <div class="col-sm-10">
+                    @Html.DropDownListFor(m => m.SupplierID, SelectListHelper.Suppliers(), new
+                    {
+                        @class = "form-control"
+                    })
+                    @Html.ValidationMessageFor(m => m.SupplierID, "", new
+                    {
+                        @class = "text-danger"
+                    })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="unit">Đơn vị tính</label>
+                <div class="col-sm-10">
+                    <input autofocus class="form-control" id="unit" name="Unit" placeholder="Unit" type="text" value="@Model.Unit">
+                    @Html.ValidationMessageFor(m => m.Unit, "", new
+                    {
+                        @class = "text-danger"
+                    })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">Giá:</label>
+                <div class="col-sm-10">
+                    <input class="form-control" name="Price" placeholder="Price" type="text" value="@Model.Price">
+                    @Html.ValidationMessageFor(m => m.Price, "", new
+                    {
+                        @class = "text-danger"
+                    })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">Ảnh minh họa:</label>
+                <div class="col-sm-10">
+                    <input class="form-control" name="uploadPhoto" onchange="document.getElementById('photo-img').src = window.URL.createObjectURL(this.files[0])" type="file" value="@Model.Photo" />
+                    @Html.ValidationMessageFor(m => m.Photo, "", new
+                    {
+                        @class = "text-danger"
+                    })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-lg-offset-2 col-sm-10">
+                    <img alt="@Model.ProductName" class="img img-bordered" id="photo-img" src="~/Photos/@Model.Photo" style="width:200px" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa fa-save"></i> Lưu dữ liệu
+                    </button>
+                    <a class="btn btn-warning" href="~/product">
+                        <i class="glyphicon glyphicon-circle-arrow-left"></i>
+                        Quay lại
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
